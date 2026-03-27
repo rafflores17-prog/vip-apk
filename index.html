@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grupo VIP 🔐</title>
+<title>🔐 Acesso VIP Direto</title>
 
 <style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #0f0f0f;
+    background: linear-gradient(180deg, #0f0f0f, #1a1a1a);
     color: #fff;
     text-align: center;
 }
@@ -17,20 +17,27 @@ body {
 .container {
     max-width: 400px;
     margin: 60px auto;
-    padding: 20px;
+    padding: 25px;
     background: #1c1c1c;
     border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    box-shadow: 0 0 25px rgba(0,0,0,0.7);
 }
 
 h1 {
     color: #00ffcc;
+    margin-bottom: 10px;
+}
+
+.sub {
+    color: #ccc;
+    font-size: 14px;
 }
 
 .price {
-    font-size: 28px;
-    margin: 15px 0;
+    font-size: 32px;
+    margin: 20px 0;
     color: #00ffcc;
+    font-weight: bold;
 }
 
 .pix-box {
@@ -39,17 +46,19 @@ h1 {
     border-radius: 10px;
     margin: 15px 0;
     word-break: break-all;
+    font-size: 14px;
 }
 
 button {
     background: #00ffcc;
     border: none;
-    padding: 12px;
+    padding: 14px;
     width: 100%;
     border-radius: 10px;
     font-size: 16px;
     cursor: pointer;
     margin-top: 10px;
+    font-weight: bold;
 }
 
 button:hover {
@@ -59,15 +68,42 @@ button:hover {
 a {
     text-decoration: none;
 }
+
+.badge {
+    background: #00ffcc;
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.info {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 15px;
+}
+
+.warning {
+    font-size: 11px;
+    color: #777;
+    margin-top: 10px;
+}
 </style>
 </head>
 
 <body>
 
 <div class="container">
+
+    <div class="badge">ACESSO IMEDIATO</div>
+
     <h1>🔐 Grupo VIP</h1>
 
-    <p>Acesso exclusivo sem encurtador</p>
+    <p class="sub">
+        Links diretos, sem encurtador, atualizações frequentes e conteúdo exclusivo 🔥
+    </p>
 
     <div class="price">R$10</div>
 
@@ -79,20 +115,31 @@ a {
 
     <button onclick="copiarPix()">📋 Copiar chave Pix</button>
 
-    <a href="https://wa.me/5584999585659?text=Já paguei o VIP, segue comprovante">
+    <a href="https://wa.me/5584999585659?text=Olá,%20já%20paguei%20o%20VIP.%20segue%20o%20comprovante">
         <button>📲 Enviar comprovante</button>
     </a>
 
-    <p style="margin-top:15px; font-size:12px; color:#aaa;">
-        Após o envio, seu acesso será liberado manualmente.
+    <p class="info">
+        Após o envio, seu acesso será liberado rapidamente.
     </p>
+
+    <p class="warning">
+        Acesso individual. Compartilhamento pode resultar em remoção.
+    </p>
+
 </div>
 
 <script>
 function copiarPix() {
     let texto = document.getElementById("pix").innerText;
     navigator.clipboard.writeText(texto);
-    alert("Chave Pix copiada!");
+
+    let botao = event.target;
+    botao.innerText = "✅ Copiado!";
+    
+    setTimeout(() => {
+        botao.innerText = "📋 Copiar chave Pix";
+    }, 2000);
 }
 </script>
 
