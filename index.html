@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grupo VIP 🔐</title>
 
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    color: #fff;
+    text-align: center;
+}
+
+.container {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 20px;
+    background: #1c1c1c;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+h1 {
+    color: #00ffcc;
+}
+
+.price {
+    font-size: 28px;
+    margin: 15px 0;
+    color: #00ffcc;
+}
+
+.pix-box {
+    background: #111;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    word-break: break-all;
+}
+
+button {
+    background: #00ffcc;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #00ccaa;
+}
+
+a {
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🔐 Grupo VIP</h1>
+
+    <p>Acesso exclusivo sem encurtador</p>
+
+    <div class="price">R$10</div>
+
+    <p>Pagamento via Pix:</p>
+
+    <div class="pix-box" id="pix">
+        84999585659
+    </div>
+
+    <button onclick="copiarPix()">📋 Copiar chave Pix</button>
+
+    <a href="https://wa.me/5584999585659?text=Já paguei o VIP, segue comprovante">
+        <button>📲 Enviar comprovante</button>
+    </a>
+
+    <p style="margin-top:15px; font-size:12px; color:#aaa;">
+        Após o envio, seu acesso será liberado manualmente.
+    </p>
+</div>
+
+<script>
+function copiarPix() {
+    let texto = document.getElementById("pix").innerText;
+    navigator.clipboard.writeText(texto);
+    alert("Chave Pix copiada!");
+}
+</script>
+
+</body>
+</html>
