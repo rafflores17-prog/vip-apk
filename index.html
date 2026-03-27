@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🔐 Acesso VIP Direto</title>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 <style>
 body {
     margin: 0;
@@ -16,7 +18,7 @@ body {
 
 .container {
     max-width: 400px;
-    margin: 60px auto;
+    margin: 50px auto;
     padding: 25px;
     background: #1c1c1c;
     border-radius: 15px;
@@ -25,7 +27,6 @@ body {
 
 h1 {
     color: #00ffcc;
-    margin-bottom: 10px;
 }
 
 .sub {
@@ -35,18 +36,18 @@ h1 {
 
 .price {
     font-size: 32px;
-    margin: 20px 0;
+    margin: 15px 0;
     color: #00ffcc;
     font-weight: bold;
 }
 
 .pix-box {
     background: #111;
-    padding: 15px;
+    padding: 12px;
     border-radius: 10px;
-    margin: 15px 0;
+    margin: 10px 0;
     word-break: break-all;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 button {
@@ -82,13 +83,17 @@ a {
 .info {
     font-size: 12px;
     color: #aaa;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 .warning {
     font-size: 11px;
     color: #777;
     margin-top: 10px;
+}
+
+#qrcode {
+    margin: 15px auto;
 }
 </style>
 </head>
@@ -102,25 +107,29 @@ a {
     <h1>🔐 Grupo VIP</h1>
 
     <p class="sub">
-        Links diretos, sem encurtador, atualizações frequentes e conteúdo exclusivo 🔥
+        Links diretos, sem encurtador, atualizações frequentes 🔥
     </p>
 
     <div class="price">R$10</div>
 
     <p>Pagamento via Pix:</p>
 
+    <!-- QR CODE -->
+    <div id="qrcode"></div>
+
+    <!-- CHAVE PIX -->
     <div class="pix-box" id="pix">
         84999585659
     </div>
 
-    <button onclick="copiarPix()">📋 Copiar chave Pix</button>
+    <button onclick="copiarPix(event)">📋 Copiar chave Pix</button>
 
     <a href="https://wa.me/5584999585659?text=Olá,%20já%20paguei%20o%20VIP.%20segue%20o%20comprovante">
         <button>📲 Enviar comprovante</button>
     </a>
 
     <p class="info">
-        Após o envio, seu acesso será liberado rapidamente.
+        Liberação rápida após envio do comprovante.
     </p>
 
     <p class="warning">
@@ -130,13 +139,22 @@ a {
 </div>
 
 <script>
-function copiarPix() {
-    let texto = document.getElementById("pix").innerText;
-    navigator.clipboard.writeText(texto);
+// GERAR QR CODE COM PIX
+var chavePix = "84999585659";
+
+new QRCode(document.getElementById("qrcode"), {
+    text: chavePix,
+    width: 150,
+    height: 150
+});
+
+// COPIAR PIX
+function copiarPix(event) {
+    navigator.clipboard.writeText(chavePix);
 
     let botao = event.target;
     botao.innerText = "✅ Copiado!";
-    
+
     setTimeout(() => {
         botao.innerText = "📋 Copiar chave Pix";
     }, 2000);
