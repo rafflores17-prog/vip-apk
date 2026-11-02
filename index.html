@@ -3,163 +3,508 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔐 Acesso VIP Direto</title>
-
+<title>🔐 Grupo VIP IPTV — Acesso Direto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #0f0f0f, #1a1a1a);
-    color: #fff;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: #0a0a0a;
+    background-image: radial-gradient(ellipse at top, #1a1a2e 0%, #0a0a0a 70%);
+    color: #e5e5e5;
+    min-height: 100vh;
+    padding: 20px 16px 40px;
+}
+.container {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    background: rgba(22, 22, 28, 0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 255, 200, 0.15);
+    border-radius: 24px;
+    padding: 28px 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 255, 204, 0.08);
+}
+.badge {
+    background: linear-gradient(90deg, #00ffcc, #00ccaa);
+    color: #000;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+}
+h1 {
+    font-size: 26px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #fff, #00ffcc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 6px;
     text-align: center;
 }
-
-.container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 25px;
-    background: #1c1c1c;
-    border-radius: 15px;
-    box-shadow: 0 0 25px rgba(0,0,0,0.7);
-}
-
-h1 {
-    color: #00ffcc;
-}
-
 .sub {
-    color: #ccc;
-    font-size: 14px;
+    color: #a0a0a0;
+    font-size: 14.5px;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 18px;
 }
-
+.price-box {
+    background: rgba(0, 255, 204, 0.08);
+    border: 1px solid rgba(0, 255, 204, 0.2);
+    border-radius: 16px;
+    padding: 14px;
+    margin: 18px 0;
+    text-align: center;
+}
 .price {
-    font-size: 32px;
-    margin: 15px 0;
+    font-size: 40px;
+    font-weight: 800;
+    color: #00ffcc;
+    letter-spacing: -1px;
+}
+.section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #00ffcc;
+    margin: 22px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.features, .benefits {
+    list-style: none;
+    font-size: 14px;
+    color: #ccc;
+}
+.features li, .benefits li {
+    margin: 7px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.45;
+}
+.features li::before, .benefits li::before {
+    content: "✓";
     color: #00ffcc;
     font-weight: bold;
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
 }
-
+.promo-box {
+    background: linear-gradient(135deg, rgba(255, 80, 80, 0.12), rgba(255, 140, 0, 0.08));
+    border: 1px solid rgba(255, 100, 50, 0.3);
+    border-radius: 16px;
+    padding: 16px;
+    margin: 20px 0;
+}
+.promo-box h3 {
+    color: #ff6b35;
+    font-size: 15px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+.promo-box p {
+    font-size: 13.5px;
+    color: #ddd;
+    line-height: 1.5;
+}
+.players-toggle {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: #00ffcc;
+    padding: 12px;
+    width: 100%;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    text-align: left;
+}
+.players-list {
+    display: none;
+    background: #111;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-top: 8px;
+    max-height: 280px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #bbb;
+    columns: 2;
+    column-gap: 16px;
+}
+.players-list.show { display: block; }
+.players-list span {
+    display: block;
+    break-inside: avoid;
+    margin: 2px 0;
+}
+.pix-section { margin-top: 8px; text-align: center; }
+.pix-label {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 8px;
+}
+#qrcode {
+    display: flex;
+    justify-content: center;
+    margin: 14px auto;
+    background: #fff;
+    padding: 10px;
+    border-radius: 12px;
+    width: fit-content;
+}
 .pix-box {
     background: #111;
-    padding: 12px;
-    border-radius: 10px;
-    margin: 10px 0;
+    border: 1px solid #333;
+    padding: 13px;
+    border-radius: 12px;
+    margin: 12px 0;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
     word-break: break-all;
-    font-size: 13px;
+    color: #00ffcc;
 }
-
-button {
-    background: #00ffcc;
+button, .btn {
+    background: linear-gradient(90deg, #00ffcc, #00d4aa);
+    color: #000;
     border: none;
-    padding: 14px;
+    padding: 15px;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 14px;
     font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
     margin-top: 10px;
-    font-weight: bold;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
-
-button:hover {
-    background: #00ccaa;
+button:hover, .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 255, 204, 0.3);
 }
-
-a {
-    text-decoration: none;
+.btn-whatsapp {
+    background: linear-gradient(90deg, #25D366, #128C7E);
+    color: #fff;
 }
-
-.badge {
+.btn-whatsapp:hover {
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+}
+.info {
+    font-size: 13px;
+    color: #888;
+    margin-top: 16px;
+    line-height: 1.5;
+    text-align: center;
+}
+.warning {
+    font-size: 12px;
+    color: #666;
+    margin-top: 8px;
+    text-align: center;
+}
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
     background: #00ffcc;
     color: #000;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    display: inline-block;
-    margin-bottom: 10px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
 }
-
-.info {
-    font-size: 12px;
-    color: #aaa;
-    margin-top: 10px;
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
 }
-
-.warning {
-    font-size: 11px;
-    color: #777;
-    margin-top: 10px;
-}
-
-#qrcode {
-    margin: 15px auto;
+@media (max-width: 400px) {
+    .players-list { columns: 1; }
+    .container { padding: 24px 16px; }
 }
 </style>
 </head>
-
 <body>
 
 <div class="container">
-
-    <div class="badge">ACESSO IMEDIATO</div>
-
-    <h1>🔐 Grupo VIP</h1>
-
-    <p class="sub">
-        Links diretos, sem encurtador, atualizações frequentes 🔥
-    </p>
-
-    <div class="price">R$30</div>
-
-    <p>Pagamento via Pix:</p>
-
-    <!-- QR CODE -->
-    <div id="qrcode"></div>
-
-    <!-- CHAVE PIX -->
-    <div class="pix-box" id="pix">
-        84999585659
+    <div style="text-align:center;">
+        <div class="badge">ACESSO IMEDIATO</div>
+        <h1>🔐 Grupo VIP IPTV</h1>
+        <p class="sub">Lista Premium + Apps + Suporte + Benefícios exclusivos</p>
     </div>
 
-    <button onclick="copiarPix(event)">📋 Copiar chave Pix</button>
+    <div class="price-box">
+        <div class="price">R$ 30</div>
+    </div>
 
-    <a href="https://wa.me/5584999585659?text=Olá,%20já%20paguei%20o%20VIP.%20segue%20o%20comprovante">
-        <button>📲 Enviar comprovante</button>
-    </a>
+    <div class="section-title">✨ O que você recebe no VIP</div>
+    <ul class="features">
+        <li><strong>Lista IPTV Premium</strong> sem divisão (uso exclusivo)</li>
+        <li>Apps/players direto no celular, sem links suspeitos</li>
+        <li>Suporte rápido e dedicado</li>
+        <li>Dicas, sugestões e atualizações frequentes</li>
+        <li>Descontos exclusivos com parceiros</li>
+        <li>Desconto especial no <strong>AScan</strong> (parceiro) para puxar suas próprias listas</li>
+        <li><strong>Ativação grátis</strong> de 1 player da sua escolha</li>
+    </ul>
 
-    <p class="info">
-        Liberação rápida após envio do comprovante.
-    </p>
+    <div class="promo-box">
+        <h3>🎁 PROMOÇÃO ESPECIAL</h3>
+        <p>Entrou no Grupo VIP? <strong>Ganhou a ativação grátis</strong> de 1 aplicativo/player de sua preferência!</p>
+        <p style="margin-top:8px;">Ao ativar conosco, você também tem suporte para usar as listas IPTV do painel Premium (conforme compatibilidade do app).</p>
+    </div>
 
-    <p class="warning">
-        Acesso individual. Compartilhamento pode resultar em remoção.
-    </p>
+    <div class="section-title">📱 Players disponíveis</div>
+    <p style="font-size:13.5px; color:#aaa; margin-bottom:6px;">Mais de 100 players suportados. Clique para ver a lista completa:</p>
+    <button class="players-toggle" onclick="togglePlayers()">📱 Ver lista completa de players ▼</button>
+    <div class="players-list" id="playersList">
+        <span>9XTREAM 4K</span>
+        <span>A PLUS PLAYER</span>
+        <span>ABE PLAYER</span>
+        <span>AI PLAYER</span>
+        <span>ALL PLAYER</span>
+        <span>ARABISK PLAYER</span>
+        <span>ASSIST PLUS</span>
+        <span>BAY IPTV / BAY TV</span>
+        <span>BIG BIG PLAYER</span>
+        <span>BLINK PLAYER</span>
+        <span>BOB PLAYER</span>
+        <span>BOB PREMIUM</span>
+        <span>BOB PRO</span>
+        <span>BOX LITE</span>
+        <span>BOX PLAYER</span>
+        <span>BRASIL IPTV</span>
+        <span>CAP PLAYER</span>
+        <span>CLOUDDY</span>
+        <span>CONECTADOS TV</span>
+        <span>DHUB IPTV</span>
+        <span>DIRETV PLAY</span>
+        <span>DONTV</span>
+        <span>DREAM TV</span>
+        <span>DTV SOL</span>
+        <span>DUPLECAST</span>
+        <span>DUPLEX MAX</span>
+        <span>DUPLEX PLUS</span>
+        <span>DUPLEX PRO</span>
+        <span>DUPLEX TV DO IBO</span>
+        <span>EASY PLAYER</span>
+        <span>EGO IPTV</span>
+        <span>ENZO PLAYER</span>
+        <span>EPIC PLAY</span>
+        <span>FAMILY PLAYER</span>
+        <span>FAST PLAYER</span>
+        <span>FENIX PLAYER</span>
+        <span>FLIX PRO</span>
+        <span>FLIX TV PLAY</span>
+        <span>FLIXNET</span>
+        <span>FLIXTRA PLAYER</span>
+        <span>FOCO X PLAY</span>
+        <span>FUN PLAY</span>
+        <span>GRAVITY PLAYER</span>
+        <span>GREEN PLAYER</span>
+        <span>GTV PLAYER</span>
+        <span>HD PLAYER</span>
+        <span>HERO PLAY</span>
+        <span>HOME IPTV</span>
+        <span>HOT ORA IPTV</span>
+        <span>HOT PLAYER</span>
+        <span>HQ PLAYER</span>
+        <span>HUSH PLAY</span>
+        <span>IBO PLAYER</span>
+        <span>IBO PREMIUM</span>
+        <span>IBO PRO</span>
+        <span>IBO SMARTERS</span>
+        <span>IBO SMARTERS PLAYER</span>
+        <span>IBO SMARTERS PLUS</span>
+        <span>IBO STB</span>
+        <span>IBO VPN PLAYER</span>
+        <span>IBOSOL PLAYER</span>
+        <span>IBOSS PLAYER</span>
+        <span>IPTV 4K</span>
+        <span>IPTV DUPLEX</span>
+        <span>IPTV ENTERTAINMENT</span>
+        <span>IPTV MAIS</span>
+        <span>IPTV NEXT</span>
+        <span>IPTV OTT PLAYER</span>
+        <span>IPTV PLAY</span>
+        <span>IPTV PLAYER</span>
+        <span>IPTV PLAYER IO</span>
+        <span>IPTV PLUS</span>
+        <span>IPTV PRO</span>
+        <span>IPTV SMART 4K</span>
+        <span>IPTV SMARTER 4K</span>
+        <span>IPTV SMARTERS PLAYER</span>
+        <span>IPTV STAR</span>
+        <span>IPTV STREAM PLAYER</span>
+        <span>IPTVACTIVATION.COM</span>
+        <span>ITELSMARTER PLAYER</span>
+        <span>JON PLAYER</span>
+        <span>KEMET TV</span>
+        <span>KING 4K OTT PLAYER</span>
+        <span>KING 4K PLAYER</span>
+        <span>KIWI 4K PLAYER</span>
+        <span>KTN PLAYER</span>
+        <span>LAXY PLAYER</span>
+        <span>LAZER PLAYER</span>
+        <span>LUMINA PLAYER</span>
+        <span>M3U IPTV PLAYER</span>
+        <span>MAC PLAYER</span>
+        <span>MAGIC PLAYER</span>
+        <span>MAX MEDIA PLAYER</span>
+        <span>MCV PLAYER</span>
+        <span>MESSI TV</span>
+        <span>META PLAYER</span>
+        <span>MIKA PLAYER</span>
+        <span>MIROPLAYER</span>
+        <span>MULTI PLAY</span>
+        <span>NINJA PLAYER</span>
+        <span>NINJA PLUS</span>
+        <span>NUBIA TV</span>
+        <span>NUM PLAYER</span>
+        <span>ORA PLAYER EU</span>
+        <span>ORA PLAYERS.COM</span>
+        <span>ORA PRO</span>
+        <span>ORION PLAY</span>
+        <span>PLAY IBO</span>
+        <span>PLAYSIM</span>
+        <span>POP PLAYER</span>
+        <span>POWER PLAY</span>
+        <span>PRO PLAYER</span>
+        <span>PRO SMARTONE</span>
+        <span>QPLAY</span>
+        <span>QUEEN TV</span>
+        <span>QUICK PLAY BLACK</span>
+        <span>QUICK PLAYER</span>
+        <span>QUICK PLAYER +</span>
+        <span>QUICK PLAYER PRO</span>
+        <span>RIEN TV STAR</span>
+        <span>RIVOLUT</span>
+        <span>SCANDIC IPTV</span>
+        <span>SHAMEL TV</span>
+        <span>SIMPLE PRO</span>
+        <span>SKY PLAY PLUS</span>
+        <span>SMART IPTV PLAY</span>
+        <span>SMART IPTV PLAYER</span>
+        <span>SMART LIVE TV</span>
+        <span>SMARTERS MAX</span>
+        <span>SMARTERS PLAYER</span>
+        <span>SMARTERS PLUS</span>
+        <span>SMARTERS PRO</span>
+        <span>SMARTERS PRO APP</span>
+        <span>SMARTERS VPN PLAYER</span>
+        <span>SMARTONE</span>
+        <span>SPORTS TV</span>
+        <span>STAR IPTV</span>
+        <span>STREAM MEDIA PLAYER</span>
+        <span>STREAM XTREAM</span>
+        <span>STRIMO</span>
+        <span>STZ PLAYER</span>
+        <span>SUPER PLAY</span>
+        <span>SW4TV</span>
+        <span>TELEVIZO IPTV PLAYER</span>
+        <span>TERRY IPTV</span>
+        <span>TERRY PLAYER</span>
+        <span>TEVIS TV</span>
+        <span>TIVI PLAYER</span>
+        <span>TVIP PLAYER</span>
+        <span>TVOYATV</span>
+        <span>UK IPTV 4K</span>
+        <span>ULTRA PLAYER</span>
+        <span>UNI STREAM TV</span>
+        <span>UNTV PLAYER</span>
+        <span>VIP</span>
+        <span>VIRGINIA</span>
+        <span>VIVO PLAYER</span>
+        <span>VIZZION PLAY</span>
+        <span>VU PLAYER PRO</span>
+        <span>VUX PLAYER</span>
+        <span>WORLD VISION IPTV</span>
+        <span>X PLAYER</span>
+        <span>XCLOUD</span>
+        <span>XENDLY 4K IPTV</span>
+        <span>XTREAMUITV</span>
+        <span>YOU TIVI</span>
+        <span>YTV 4K PLAYER</span>
+        <span>ZEBRA PLAYER</span>
+        <span>ZUXO PLAYER</span>
+    </div>
 
+    <div class="pix-section">
+        <p class="pix-label">Pagamento via Pix</p>
+        <div id="qrcode"></div>
+        <div class="pix-box" id="pix">84999585659</div>
+        <button onclick="copiarPix()">📋 Copiar chave Pix</button>
+        <a href="https://wa.me/5584999585659?text=Olá,%20boa%20noite!%20Já%20paguei%20o%20VIP%20IPTV.%20Segue%20o%20comprovante%20e%20quero%20a%20ativação%20grátis%20do%20player." class="btn btn-whatsapp">
+            📲 Enviar comprovante
+        </a>
+    </div>
+
+    <p class="info">Liberação rápida após envio do comprovante. Escolha seu player e envie pelo WhatsApp.</p>
+    <p class="warning">Acesso individual. Compartilhamento pode resultar em remoção.</p>
 </div>
 
+<div class="toast" id="toast">Chave Pix copiada!</div>
+
 <script>
-// GERAR QR CODE COM PIX
-var chavePix = "84999585659";
+const chavePix = "84999585659";
 
 new QRCode(document.getElementById("qrcode"), {
     text: chavePix,
-    width: 150,
-    height: 150
+    width: 170,
+    height: 170,
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
 });
 
-// COPIAR PIX
-function copiarPix(event) {
-    navigator.clipboard.writeText(chavePix);
+function copiarPix() {
+    navigator.clipboard.writeText(chavePix).then(() => {
+        showToast();
+    }).catch(() => {
+        const el = document.createElement("textarea");
+        el.value = chavePix;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+        showToast();
+    });
+}
 
-    let botao = event.target;
-    botao.innerText = "✅ Copiado!";
+function showToast() {
+    const toast = document.getElementById("toast");
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2000);
+}
 
-    setTimeout(() => {
-        botao.innerText = "📋 Copiar chave Pix";
-    }, 2000);
+function togglePlayers() {
+    const list = document.getElementById("playersList");
+    const btn = document.querySelector(".players-toggle");
+    list.classList.toggle("show");
+    btn.textContent = list.classList.contains("show") 
+        ? "📱 Ocultar lista de players ▲" 
+        : "📱 Ver lista completa de players ▼";
 }
 </script>
-
 </body>
-</html>
+            </html>
